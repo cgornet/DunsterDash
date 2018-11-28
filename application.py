@@ -7,7 +7,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required, admin_login_required()
+from helpers import apology, login_required, admin_login_required
 
 # Configure application
 app = Flask(__name__)
@@ -38,13 +38,18 @@ def check():
     """Return true if username available, else false, in JSON format"""
     return jsonify(bool(db.execute("SELECT username FROM users WHERE username = :username", username=request.args.get("username"))))
 
+@app.route("/menu")
+@login_required
+def menu():
+    if request.method == "POST":
+        return render_template("order.html")
+    return render_template("menu.html")
+
 
 @app.route("/")
 @login_required
 def index():
-    if request.method == "POST":
-        return render_template("order.html")
-    return render_template("menu.html")
+    return render_template("index.html")
 
 @app.route("/order")
 @login_required
@@ -77,7 +82,7 @@ def history():
     # Get the username to sort transactions by
     username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
     # Get all transactions from the user
-    
+
     return render_template("history.html", previous_orders=orders)
 
 
