@@ -41,9 +41,13 @@ def check():
 @app.route("/menu")
 @login_required
 def menu():
-    menu = db.execute("SELECT * FROM menu")
-    type = db.execute("SELECT type FROM menu")
-    return render_template("menu.html", menu=menu, type=type)
+    fryer = db.execute("SELECT * FROM menu WHERE type = Fryer")
+    fries = db.execute("SELECT * FROM menu WHERE type = Fries")
+    specials = db.execute("SELECT * FROM menu WHERE type = Specials")
+    grille = db.execute("SELECT * FROM menu WHERE type = Grille")
+    combos = db.execute("SELECT * FROM menu WHERE type = Combos")
+    drinks = db.execute("SELECT * FROM menu WHERE type = Drinks")
+    return render_template("menu.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
 
 
 @app.route("/")
