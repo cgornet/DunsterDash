@@ -41,7 +41,8 @@ def check():
 @app.route("/menu")
 @login_required
 def menu():
-    return render_template("menu.html")
+    menu = db.execute("SELECT * FROM menu")
+    return render_template("menu.html", menu=menu)
 
 
 @app.route("/")
