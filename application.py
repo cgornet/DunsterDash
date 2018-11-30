@@ -99,14 +99,14 @@ def orders():
     return render_template("orders.html", placed_orders=orders)
 
 
-@app.route("/history")
+@app.route("/past_orders")
 @login_required
-def history():
+def past_orders():
     """Show history of transactions"""
     # Get the username to sort transactions by
-    #username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
+    username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
     # Get all transactions from the user
-    #previous_orders = db.execute("SELECT * FROM orders WHERE user = :username", username=username)
+    previous_orders = db.execute("SELECT * FROM orders WHERE user = :username", username=username)
 
     return render_template("past_orders.html")
 
