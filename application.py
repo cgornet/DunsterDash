@@ -41,8 +41,6 @@ def check():
 @app.route("/menu")
 @login_required
 def menu():
-    if request.method == "POST":
-        return render_template("order.html")
     return render_template("menu.html")
 
 
@@ -62,7 +60,7 @@ def order():
             return apology("You must input the room you are in", 403)
 
         # Insert into database the user, order, and room number
-        db.execute("INSERT INTO users (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
+        db.execute("INSERT INTO orders (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
                         username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
 
     return render_template("order.html")
