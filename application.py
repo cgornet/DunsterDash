@@ -85,6 +85,8 @@ def order():
 @admin_login_required
 def orders():
 
+    # Select orders that are not complete
+
     return render_template("orders.html", placed_orders=orders)
 
 
