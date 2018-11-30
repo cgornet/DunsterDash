@@ -55,6 +55,11 @@ def menu():
 def index():
     return render_template("index.html")
 
+@app.route("/ordered")
+@login_required
+def ordered():
+    return render_template("ordered.html")
+
 @app.route("/order")
 @login_required
 def order():
