@@ -68,8 +68,8 @@ def ordered():
             return apology("You must input the room you are in", 403)
 
         # Insert into database the user, order, and room number
-        db.execute("INSERT INTO orders (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
-                        username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
+        db.execute("INSERT INTO orders (username, food, deliverroom, total, comments) VALUES (:username, :food, :deliverroom, :total, :comments)",
+                        username=username, food=request.form.get("order"), deliverroom=request.form.get("room"), total=1, comments=request.form.get("comments"))
 
         # Redirect user to the history page
         return redirect("/history")
