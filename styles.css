@@ -18,11 +18,9 @@ body
     background-color: #773141;
 }
 
+/* styling for stuff */
 main .form-control
 {
-    /* centering form */
-    display: inline-block;
-
     /* override Bootstrap controls */
     width: auto;
 }

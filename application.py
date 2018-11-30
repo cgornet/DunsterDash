@@ -64,7 +64,8 @@ def order():
         db.execute("INSERT INTO orders (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
                         username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
 
-    return render_template("order.html")
+    menu = db.execute("SELECT * FROM menu")
+    return render_template("order.html", menu=menu)
 
 
 @app.route("/orders")
