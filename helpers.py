@@ -53,3 +53,19 @@ def admin_login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+# Used distributiion code from CS50 Finance to help
+def delivery_login_required(f):
+    """
+    Decorate routes to require login of an admin.
+
+    http://flask.pocoo.org/docs/1.0/patterns/viewdecorators/
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        elif db.execute("SELECT delivery from users WHERE id = :user_id", user_id=session["user_id"])[0]["delivery"] is 0:
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
