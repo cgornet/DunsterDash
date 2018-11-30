@@ -108,7 +108,7 @@ def history():
     # Get all transactions from the user
     #previous_orders = db.execute("SELECT * FROM orders WHERE user = :username", username=username)
 
-    return render_template("index.html")
+    return render_template("past_orders.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
