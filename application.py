@@ -41,13 +41,8 @@ def check():
 @app.route("/menu")
 @login_required
 def menu():
-    fryer = db.execute("SELECT * FROM menu WHERE type = Fryer")
-    fries = db.execute("SELECT * FROM menu WHERE type = Fries")
-    specials = db.execute("SELECT * FROM menu WHERE type = Specials")
-    grille = db.execute("SELECT * FROM menu WHERE type = Grille")
-    combos = db.execute("SELECT * FROM menu WHERE type = Combos")
-    drinks = db.execute("SELECT * FROM menu WHERE type = Drinks")
-    return render_template("menu.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
+    menu = db.execute("SELECT * FROM menu")
+    return render_template("menu.html", menu=menu)
 
 
 @app.route("/")
@@ -58,6 +53,14 @@ def index():
 @app.route("/order")
 @login_required
 def order():
+
+    fryer = db.execute("SELECT * FROM menu WHERE type = 'Fryer'")
+    fries = db.execute("SELECT * FROM menu WHERE type = 'Fries'")
+    specials = db.execute("SELECT * FROM menu WHERE type = 'Specials'")
+    grille = db.execute("SELECT * FROM menu WHERE type = 'Grille'")
+    combos = db.execute("SELECT * FROM menu WHERE type = 'Combos'")
+    drinks = db.execute("SELECT * FROM menu WHERE type = 'Drinks'")
+
     if request.method == "POST":
         if not request.form.get("order"):
             return apology("You must input your order", 403)
@@ -70,16 +73,14 @@ def order():
                         username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
 
     menu = db.execute("SELECT * FROM menu")
-    return render_template("order.html", menu=menu)
+    return render_template("order.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
 
 
 @app.route("/orders")
 @admin_login_required
 def orders():
 
-    # Select all transactions from the day
-
-    return render_template("orders.html", placed_orders = orders)
+    return render_template("orders.html", placed_orders=orders)
 
 
 @app.route("/history")
