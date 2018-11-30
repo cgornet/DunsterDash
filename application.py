@@ -77,6 +77,9 @@ def order():
         db.execute("INSERT INTO orders (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
                         username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
 
+        # Redirect user to the history page
+        return redirect("/history")
+
     menu = db.execute("SELECT * FROM menu")
     return render_template("order.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
 
@@ -97,6 +100,7 @@ def history():
     # Get the username to sort transactions by
     username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
     # Get all transactions from the user
+    previous_orders = db.execute("SELECT * FROM orders WHERE user = :username ORDER BY time;", username=username)
 
     return render_template("history.html", previous_orders=orders)
 
