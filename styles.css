@@ -24,6 +24,10 @@ main .form-control
     /* override Bootstrap controls */
     width: auto;
 }
+form
+{
+    display: inline-block;
+}
 
 main
 {
