@@ -162,6 +162,18 @@ def register():
         elif request.form.get("confirmation") != password:
             return apology("Your password must match the confirmation", 400)
 
+        # Ensure that the password matches the confirmation
+        elif not request.form.get("email"):
+            return apology("You must provide an email", 400)
+
+        # Ensure that the password matches the confirmation
+        elif not request.form.get("house"):
+            return apology("You must provide a house", 400)
+
+        # Ensure that the password matches the confirmation
+        elif not request.form.get("room"):
+            return apology("You must provide a room", 400)
+
         usercheck = db.execute("SELECT * FROM users WHERE username = :username", username=username)
 
         if usercheck:
@@ -173,8 +185,9 @@ def register():
             hashed_pw = generate_password_hash(password)
 
             # Insert user into table of users
-            db.execute("INSERT INTO users (username, hash, email, house, room) VALUES (:username, :hash, :email, house, room)", 
-                            username=username, hash=hashed_pw, email=email, house=house, room=room)
+            db.execute("INSERT INTO users (username, hash, email, house, room) VALUES (:username, :hash, :email, house, room)",
+                        username=username, hash=hashed_pw, email=request.form.get("email"), 
+                        house=request.form.get("house"), room=request.form.get("room"))
 
             # Query database for username
             rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
