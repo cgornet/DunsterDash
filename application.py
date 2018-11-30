@@ -55,9 +55,25 @@ def menu():
 def index():
     return render_template("index.html")
 
-@app.route("/ordered")
+@app.route("/ordered",  methods=["POST"])
 @login_required
 def ordered():
+
+    # Get the username of the user
+    username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
+
+    if request.method == "POST":
+
+        if not request.form.get("room"):
+            return apology("You must input the room you are in", 403)
+
+        # Insert into database the user, order, and room number
+        db.execute("INSERT INTO orders (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
+                        username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
+
+        # Redirect user to the history page
+        return redirect("/history")
+
     return render_template("ordered.html")
 
 @app.route("/order")
@@ -71,21 +87,6 @@ def order():
     combos = db.execute("SELECT * FROM menu WHERE type = 'Combos'")
     drinks = db.execute("SELECT * FROM menu WHERE type = 'Drinks'")
 
-    if request.method == "POST":
-        if not request.form.get("order"):
-            return apology("You must input your order", 403)
-
-        elif not request.form.get("deliverroom"):
-            return apology("You must input the room you are in", 403)
-
-        # Insert into database the user, order, and room number
-        db.execute("INSERT INTO orders (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
-                        username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
-
-        # Redirect user to the history page
-        return redirect("/history")
-
-    menu = db.execute("SELECT * FROM menu")
     return render_template("order.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
 
 
@@ -103,11 +104,11 @@ def orders():
 def history():
     """Show history of transactions"""
     # Get the username to sort transactions by
-    username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
+    #username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
     # Get all transactions from the user
-    previous_orders = db.execute("SELECT * FROM orders WHERE user = :username ORDER BY time;", username=username)
+    #previous_orders = db.execute("SELECT * FROM orders WHERE user = :username", username=username)
 
-    return render_template("history.html", previous_orders=orders)
+    return render_template("index.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
