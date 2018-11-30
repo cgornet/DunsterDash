@@ -6,17 +6,89 @@
 
 {% block main %}
     <table class="table table-striped">
-        <tr>
-            <th>Food</th>
-            <th>Description</th>
-            <th>Price</th>
-        </tr>
-    {% for item in menu %}
-        <tr>
-            <td>{{ item.food }}</td>
-            <td>{{ item.description }}</td>
-            <td>${{ item.price }}</td>
-        </tr>
-    {% endfor %}
-    </table>
+            <tr>
+                <th>Food</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        {% for item in fries %}
+            <tr>
+                <td>{{ item.food }}</td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+            </tr>
+        {% endfor %}
+        Fries
+        <table class="table table-striped">
+            <tr>
+                <th>Food</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        {% for item in specials %}
+            <tr>
+                <td>{{ item.food }}</td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+            </tr>
+        {% endfor %}
+         Specials
+        <table class="table table-striped">
+            <tr>
+                <th>Food</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        {% for item in grille %}
+            <tr>
+                <td>{{ item.food }}</td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+            </tr>
+        {% endfor %}
+         Grille
+        <table class="table table-striped">
+            <tr>
+                <th>Food</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        {% for item in combos %}
+            <tr>
+                <td>{{ item.food }}</td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+            </tr>
+        {% endfor %}
+         Combos
+        <table class="table table-striped">
+            <tr>
+                <th>Food</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        {% for item in drinks %}
+            <tr>
+                <td>{{ item.food }}</td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+            </tr>
+        {% endfor %}
+         Drinks
+        <table class="table table-striped">
+            <tr>
+                <th>Food</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        {% for item in fryer %}
+            <tr>
+                <td>{{ item.food }}</td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+                <td>
+            </tr>
+        {% endfor %}
+        Fryer
+        </table>
 {% endblock %}

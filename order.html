@@ -6,28 +6,6 @@
 
 {% block main %}
     <form action="/ordered" method="post">
-        Fryer
-        <table class="table table-striped">
-            <tr>
-                <th>Food</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Order</th>
-            </tr>
-        {% for item in fryer %}
-            <tr>
-                <td>{{ item.food }}</td>
-                <td>{{ item.description }}</td>
-                <td>${{ item.price }}</td>
-                <td>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1"></label>
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-        Fries
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -48,7 +26,7 @@
                 </td>
             </tr>
         {% endfor %}
-         Specials
+        Fries
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -69,7 +47,7 @@
                 </td>
             </tr>
         {% endfor %}
-         Grille
+         Specials
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -90,7 +68,7 @@
                 </td>
             </tr>
         {% endfor %}
-         Combos
+         Grille
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -111,7 +89,7 @@
                 </td>
             </tr>
         {% endfor %}
-         Drinks
+         Combos
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -132,6 +110,28 @@
                 </td>
             </tr>
         {% endfor %}
+         Drinks
+        <table class="table table-striped">
+            <tr>
+                <th>Food</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Order</th>
+            </tr>
+        {% for item in fryer %}
+            <tr>
+                <td>{{ item.food }}</td>
+                <td>{{ item.description }}</td>
+                <td>${{ item.price }}</td>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1"></label>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        Fryer
         </table>
         <div class="form-group">
             <input class="form-control" name="room" placeholder="Room (Ex. W401)" type="text">
