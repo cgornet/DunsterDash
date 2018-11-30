@@ -6,7 +6,7 @@ from flask import redirect, render_template, request, session
 from functools import wraps
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///finance.db")
+db = SQL("sqlite:///dunsterdash.db")
 
 # Used distributiion code from CS50 Finance
 def apology(message, code=400):
