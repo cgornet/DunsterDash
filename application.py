@@ -173,7 +173,8 @@ def register():
             hashed_pw = generate_password_hash(password)
 
             # Insert user into table of users
-            db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=username, hash=hashed_pw)
+            db.execute("INSERT INTO users (username, hash, email, house, room) VALUES (:username, :hash, :email, house, room)", 
+                            username=username, hash=hashed_pw, email=email, house=house, room=room)
 
             # Query database for username
             rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
