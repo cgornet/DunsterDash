@@ -58,10 +58,12 @@ def order():
         if not request.form.get("order"):
             return apology("You must input your order", 403)
 
-        elif not request.form.get("room"):
+        elif not request.form.get("deliverroom"):
             return apology("You must input the room you are in", 403)
 
         # Insert into database the user, order, and room number
+        db.execute("INSERT INTO users (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
+                        username=username, food=request.form.get("order"), deliverroom=request.form.get("deliverroom"))
 
     return render_template("order.html")
 
@@ -185,9 +187,9 @@ def register():
             hashed_pw = generate_password_hash(password)
 
             # Insert user into table of users
-            db.execute("INSERT INTO users (username, hash, email, house, room) VALUES (:username, :hash, :email, :house, :room)",
-                        username=username, hash=hashed_pw, email=request.form.get("email"), house=request.form.get("house"), 
-                        room=request.form.get("room"))
+            db.execute("INSERT INTO users (username, hash, email, house, room, number) VALUES (:username, :hash, :email, :house, :room, :number)",
+                        username=username, hash=hashed_pw, email=request.form.get("email"), house=request.form.get("house"),
+                        room=request.form.get("room"), number=request.form.get("number"))
 
             # Query database for username
             rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
