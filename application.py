@@ -30,7 +30,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///finance.db")
+db = SQL("sqlite:///dunsterdash.db")
 
 
 @app.route("/check", methods=["GET"])
@@ -176,8 +176,7 @@ def register():
             db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=username, hash=hashed_pw)
 
             # Query database for username
-            rows = db.execute("SELECT * FROM users WHERE username = :username",
-                              username=request.form.get("username"))
+            rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
             # Remember which user has logged in
             session["user_id"] = rows[0]["id"]
