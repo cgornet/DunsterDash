@@ -7,7 +7,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required, admin_login_required
+from helpers import apology, login_required, admin_login_required, delivery_login_required
 
 # Configure application
 app = Flask(__name__)
@@ -91,13 +91,12 @@ def order():
     return render_template("order.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
 
 
-@app.route("/delivery-orders")
+@app.route("/delivery_orders")
 @delivery_login_required
-def orders():
+def delivery_orders():
 
     # Select orders that are not complete
-   outstanding_orders = db.execute("SELECT * FROM orders WHERE status = 0", status=status)
-
+    outstanding_orders = db.execute("SELECT * FROM orders WHERE status = :status", status=0)
     return render_template("past_orders.html", outstanding_orders=outstanding_orders)
 
 @app.route("/adin_orders")
@@ -105,8 +104,7 @@ def orders():
 def orders():
 
     # Select orders that are not complete
-   outstanding_orders = db.execute("SELECT * FROM orders WHERE status = 0", status=status)
-
+    outstanding_orders = db.execute("SELECT * FROM orders WHERE status = :status", status=0)
     return render_template("past_orders.html", outstanding_orders=outstanding_orders)
 
 @app.route("/history")
