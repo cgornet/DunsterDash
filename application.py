@@ -63,13 +63,14 @@ def ordered():
     username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
 
     if request.method == "POST":
+        print(request.form)
 
         if not request.form.get("room"):
             return apology("You must input the room you are in", 403)
 
         # Insert into database the user, order, and room number
-        db.execute("INSERT INTO orders (username, food, deliverroom, total, comments) VALUES (:username, :food, :deliverroom, :total, :comments)",
-                        username=username, food=request.form.get("order"), deliverroom=request.form.get("room"), total=1, comments=request.form.get("comments"))
+        db.execute("INSERT INTO orders (username, food, deliverroom) VALUES (:username, :food, :deliverroom)",
+                        username=username, food=request.form.get("order"), deliverroom=request.form.get("room"))
 
         # Redirect user to the history page
         return redirect("/history")
@@ -90,23 +91,32 @@ def order():
     return render_template("order.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
 
 
-@app.route("/orders")
+@app.route("/delivery-orders")
+@delivery_login_required
+def orders():
+
+    # Select orders that are not complete
+   outstanding_orders = db.execute("SELECT * FROM orders WHERE status = 0", status=status)
+
+    return render_template("past_orders.html", outstanding_orders=outstanding_orders)
+
+@app.route("/adin_orders")
 @admin_login_required
 def orders():
 
     # Select orders that are not complete
+   outstanding_orders = db.execute("SELECT * FROM orders WHERE status = 0", status=status)
 
-    return render_template("orders.html", placed_orders=orders)
+    return render_template("past_orders.html", outstanding_orders=outstanding_orders)
 
-
-@app.route("/past_orders")
+@app.route("/history")
 @login_required
 def past_orders():
     """Show history of transactions"""
     # Get the username to sort transactions by
     username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
     # Get all transactions from the user
-    previous_orders = db.execute("SELECT * FROM orders WHERE user = :username", username=username)
+    previous_orders = db.execute("SELECT * FROM orders WHERE username = :username", username=username)
 
     return render_template("past_orders.html")
 

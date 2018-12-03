@@ -16,7 +16,7 @@
             <input class="form-control" name="house" placeholder="Harvard House" type="text">
         </div>
         <div class="form-group">
-            <input class="form-control" name="room" placeholder="Default Dunster Room" type="text">
+            <input class="form-control" name="room" placeholder="Room" type="text">
         </div>
         <div class="form-group">
             <input class="form-control" name="number" placeholder="Phone Number" type="text">
@@ -29,4 +29,24 @@
         </div>
         <button class="btn btn-primary" type="submit">Register</button>
     </form>
+    <script>
+  document.getElementById("submit_button").addEventListener("click", function(event){
+    event.preventDefault()
+
+});
+
+        $("#submit_button").click(function() {
+        $.getJSON( "/check", {username: $("#username").val()}).done( function( data ) {
+            if (data){
+                alert("Username taken!")
+            }
+            else {
+                $("#register_form").submit()
+            }
+        });
+
+})
+
+
+    </script>
 {% endblock %}
