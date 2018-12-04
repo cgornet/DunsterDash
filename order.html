@@ -6,6 +6,7 @@
 
 {% block main %}
     <form action="/ordered" method="post">
+        Fries
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -20,13 +21,14 @@
                 <td>${{ item.price }}</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="order" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1"></label>
+                        <input class="form-check-input" type="checkbox" value="order" name="{{item.fid}}" id="{{item.fid}}">
+                        <label class="form-check-label" for="{{item.fid}}"></label>
                     </div>
                 </td>
             </tr>
         {% endfor %}
-        Fries
+        </table>
+        Specials
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -41,13 +43,14 @@
                 <td>${{ item.price }}</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="order" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="order" name="{{item.fid}}" id="{{item.fid}}">
                         <label class="form-check-label" for="defaultCheck1"></label>
                     </div>
                 </td>
             </tr>
         {% endfor %}
-         Specials
+        </table>
+         Grille
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -62,13 +65,14 @@
                 <td>${{ item.price }}</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="order" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="order" name="{{item.fid}}" id="{{item.fid}}">
                         <label class="form-check-label" for="defaultCheck1"></label>
                     </div>
                 </td>
             </tr>
         {% endfor %}
-         Grille
+        </table>
+         Combos
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -83,13 +87,14 @@
                 <td>${{ item.price }}</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="order" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="order" name="{{item.fid}}" id="{{item.fid}}">
                         <label class="form-check-label" for="defaultCheck1"></label>
                     </div>
                 </td>
             </tr>
         {% endfor %}
-         Combos
+        </table>
+         Drinks
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -104,13 +109,14 @@
                 <td>${{ item.price }}</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="order" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="order" name="{{item.fid}}" id="{{item.fid}}">
                         <label class="form-check-label" for="defaultCheck1"></label>
                     </div>
                 </td>
             </tr>
         {% endfor %}
-         Drinks
+        </table>
+         Fryer
         <table class="table table-striped">
             <tr>
                 <th>Food</th>
@@ -125,13 +131,12 @@
                 <td>${{ item.price }}</td>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="order" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="order" name="{{item.fid}}" id="{{item.fid}}">
                         <label class="form-check-label" for="defaultCheck1"></label>
                     </div>
                 </td>
             </tr>
         {% endfor %}
-        Fryer
         </table>
         <div class="form-group">
             <input class="form-control" name="room" placeholder="Room (Ex. W401)" type="text">
