@@ -58,7 +58,7 @@ def index():
 @app.route("/ordered",  methods=["POST"])
 @login_required
 def ordered():
-
+    print(request.form)
     # Get the username of the user
     username = db.execute("SELECT username from users WHERE id = :user_id", user_id=session["user_id"])[0]["username"]
 
@@ -88,7 +88,7 @@ def order():
     combos = db.execute("SELECT * FROM menu WHERE type = 'Combos'")
     drinks = db.execute("SELECT * FROM menu WHERE type = 'Drinks'")
 
-    return render_template("order.html", fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks)
+    return render_template("order.html", menu=dict(fryer=fryer, fries=fries, specials=specials, grille=grille, combos=combos, drinks=drinks))
 
 
 @app.route("/delivery_orders")
